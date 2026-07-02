@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sumanth Bandi | Data Scientist &amp; Generative AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0e0a1a;
+    --bg-mid: #150f26;
+    --violet-1: #7c3aed;
+    --violet-2: #a855f7;
+    --coral: #fb7185;
+    --accent: #c084fc;
+    --accent-light: #e9d5ff;
+    --amber: #fbbf24;
+    --white: #ffffff;
+    --gray-1: #e5def5;
+    --gray-2: #b3a7cf;
+    --gray-3: #6e6390;
+    --glass: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.1);
+    --card: rgba(255,255,255,0.04);
+    --card-hover: rgba(255,255,255,0.08);
+    --gradient: linear-gradient(135deg, var(--violet-1), var(--coral));
+    --gradient-soft: linear-gradient(135deg, #2a1a4d, #3d1a3d);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg-deep);
+    color: var(--gray-1);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 4rem;
+    background: rgba(14,10,26,0.72);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.25rem; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray-2); text-decoration: none; font-size: 0.9rem;
+    font-weight: 500; transition: color 0.2s;
+    position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 100%;
+    height: 2px; background: var(--gradient);
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-links a.active { color: var(--white); }
+  .nav-links a.active::after { right: 0; }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .nav-toggle span { width: 24px; height: 2px; background: var(--white); }
+
+  /* CANVAS BG */
+  #canvas-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 4rem;
+  }
+  .hero-text { flex: 1; }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .hero-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.1; margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--accent-light); font-weight: 500; margin-bottom: 1.5rem;
+    min-height: 2rem;
+    font-family: 'Space Mono', monospace;
+  }
+  .hero-desc {
+    color: var(--gray-2); font-size: 0.95rem; max-width: 560px;
+    margin-bottom: 2rem; line-height: 1.75;
+  }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--gradient);
+    color: #1a0b2e; font-weight: 700; font-size: 0.9rem;
+    border-radius: 50px; text-decoration: none;
+    border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+  .hero-social { display: flex; gap: 0.75rem; }
+  .social-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--gray-2);
+    font-size: 1rem; transition: all 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  .social-icon:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  /* PHOTO */
+  .hero-photo { flex-shrink: 0; }
+  .photo-ring {
+    width: 300px; height: 300px; border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
+                var(--gradient) border-box;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    box-shadow: 0 0 60px rgba(168,85,247,0.28);
+    animation: float 4s ease-in-out infinite;
+  }
+  .photo-inner {
+    width: 272px; height: 272px; border-radius: 50%;
+    background: var(--gradient-soft);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .photo-pattern {
+    position: absolute; inset: 0; opacity: 0.35;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(192,132,252,0.6) 0, transparent 35%),
+      radial-gradient(circle at 80% 30%, rgba(251,113,133,0.5) 0, transparent 35%),
+      radial-gradient(circle at 50% 80%, rgba(124,58,237,0.6) 0, transparent 40%);
+  }
+  .photo-placeholder {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 5rem; font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative; z-index: 1;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo-ring { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* SECTIONS COMMON */
+  section { position: relative; z-index: 1; }
+  .section-wrap {
+    max-width: 1200px; margin: 0 auto;
+    padding: 5rem 4rem;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700;
+    color: var(--white); margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+  .divider {
+    width: 60px; height: 3px;
+    background: var(--gradient);
+    border-radius: 2px; margin-bottom: 3rem;
+  }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ABOUT */
+  #about { background: var(--bg-mid); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .about-text p { color: var(--gray-2); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.8; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 1.5rem;
+    text-align: center; transition: background 0.2s;
+  }
+  .stat-card:hover { background: var(--card-hover); }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray-3); margin-top: 0.25rem; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-group {
+    background: var(--card); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 1.5rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .skill-group:hover { background: var(--card-hover); border-color: rgba(192,132,252,0.35); }
+  .skill-group-title {
+    font-weight: 700; color: var(--white); margin-bottom: 1rem;
+    font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-group-title .icon { font-size: 1.2rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; padding: 0.3rem 0.75rem; border-radius: 50px;
+    background: rgba(192,132,252,0.08); border: 1px solid rgba(192,132,252,0.22);
+    color: var(--accent-light); font-weight: 500;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg-mid); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--violet-1), transparent);
+  }
+  .timeline-item { padding-left: 2.5rem; margin-bottom: 3rem; position: relative; }
+  .timeline-dot {
+    position: absolute; left: -5px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gradient);
+    box-shadow: 0 0 12px rgba(251,113,133,0.55);
+  }
+  .exp-card {
+    background: var(--card); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 1.75rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .exp-card:hover { background: var(--card-hover); border-color: rgba(192,132,252,0.35); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.25rem; flex-wrap: wrap; gap: 0.5rem; }
+  .exp-role { font-weight: 700; color: var(--white); font-size: 1rem; font-family: 'Space Grotesk', sans-serif; }
+  .exp-date { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .exp-org { color: var(--accent-light); font-size: 0.85rem; margin-bottom: 1rem; font-weight: 500; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.875rem; color: var(--gray-2); padding: 0.35rem 0;
+    padding-left: 1.25rem; position: relative; line-height: 1.7;
+  }
+  .exp-bullets li::before {
+    content: '\25B8'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.7rem; top: 0.45rem;
+  }
+  .exp-bullets strong { color: var(--gray-1); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 2rem;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gradient);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { background: var(--card-hover); border-color: rgba(192,132,252,0.35); transform: translateY(-4px); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; font-size: 1rem; }
+  .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .project-bullets { list-style: none; }
+  .project-bullets li {
+    font-size: 0.85rem; color: var(--gray-2); padding: 0.3rem 0;
+    padding-left: 1.25rem; position: relative; line-height: 1.65;
+  }
+  .project-bullets li::before {
+    content: '\2192'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem; top: 0.3rem;
+  }
+  .project-bullets strong { color: var(--gray-1); }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--accent); text-decoration: none;
+    font-weight: 700;
+  }
+  .project-link:hover { color: var(--coral); }
+
+  /* PUBLICATIONS */
+  #publications { background: var(--bg-mid); }
+  .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .pub-card {
+    background: var(--card); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 1.75rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pub-card:hover { background: var(--card-hover); border-color: rgba(192,132,252,0.35); }
+  .pub-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); font-size: 1rem; margin-bottom: 0.4rem; }
+  .pub-status {
+    display: inline-block; font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 0.15rem 0.6rem; border-radius: 50px; margin-bottom: 0.75rem;
+    color: var(--amber); border: 1px solid rgba(251,191,36,0.35);
+    background: rgba(251,191,36,0.08);
+  }
+  .pub-desc { color: var(--gray-2); font-size: 0.875rem; line-height: 1.7; }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .edu-card {
+    background: var(--card); border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 2rem; transition: all 0.2s;
+  }
+  .edu-card:hover { background: var(--card-hover); border-color: rgba(192,132,252,0.35); }
+  .edu-degree { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; font-size: 1rem; }
+  .edu-school { color: var(--accent-light); font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .edu-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--gray-3); margin-bottom: 0.25rem; }
+  .edu-course { font-size: 0.8rem; color: var(--gray-2); margin-top: 0.5rem; }
+
+  /* CONTACT */
+  #contact { background: var(--bg-mid); }
+  .contact-inner { text-align: center; max-width: 680px; margin: 0 auto; }
+  .contact-inner p { color: var(--gray-2); margin-bottom: 2.5rem; font-size: 0.95rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 1.75rem; border-radius: 50px;
+    font-size: 0.875rem; font-weight: 600; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-link.primary {
+    background: var(--gradient); color: #1a0b2e;
+  }
+  .contact-link.ghost {
+    border: 1px solid var(--glass-border); color: var(--gray-1);
+    background: var(--glass); backdrop-filter: blur(8px);
+  }
+  .contact-link:hover { transform: translateY(-3px); opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.8rem; color: var(--gray-3);
+    border-top: 1px solid var(--glass-border);
+    position: relative; z-index: 1;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    #home { padding: 7rem 1.5rem 3rem; }
+    .hero-inner { flex-direction: column-reverse; text-align: center; gap: 2.5rem; }
+    .hero-desc { margin-left: auto; margin-right: auto; }
+    .hero-cta { justify-content: center; }
+    .photo-ring { width: 220px; height: 220px; }
+    .photo-inner { width: 196px; height: 196px; }
+    .photo-placeholder { font-size: 3.5rem; }
+    .section-wrap { padding: 3.5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<nav>
+  <div class="nav-logo">Sumanth<span>.B</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Data Scientist &middot; Generative AI Engineer</p>
+      <h1 class="hero-name">Sumanth Bandi</h1>
+      <div class="hero-title" id="typewriter"></div>
+      <p class="hero-desc">
+        Data Scientist with 4+ years of hands-on experience building machine learning systems from research to
+        production. Specialized in Generative AI, LLM applications, RAG architectures, and agentic AI workflows &mdash;
+        currently architecting AI solutions at SUNY Polytechnic Institute and SPIRIT AI, while contributing to published
+        research in crisis detection and predictive modeling.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:sumanthbandi178@gmail.com" class="btn-primary">&#9993; Get In Touch</a>
+        <div class="hero-social">
+          <a href="#" class="social-icon" title="LinkedIn">in</a>
+          <a href="#" class="social-icon" title="GitHub">&#x2318;</a>
+          <a href="tel:+13158640389" class="social-icon" title="Phone">&#9742;</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-ring">
+        <div class="photo-inner">
+          <div class="photo-pattern"></div>
+          <div class="photo-placeholder">SB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <p class="section-label reveal">Introduction</p>
+    <h2 class="section-title reveal">About Me</h2>
+    <div class="divider reveal"></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I build machine learning systems that move from research prototypes to reliable production software.
+          My work spans Generative AI and LLM application development &mdash; RAG architectures, agentic workflows,
+          and multi-provider LLM orchestration &mdash; alongside classical ML for forecasting and NLP-driven
+          classification.
+        </p>
+        <p>
+          At SUNY Polytechnic Institute, I develop geotechnical data platforms and disaster-intelligence NLP
+          pipelines. At SPIRIT AI, I engineer production-grade cost monitoring, semantic caching, and
+          provider-agnostic inference architecture for LLM-powered systems at scale.
+        </p>
+        <p>
+          I hold an M.S. in Data Science &amp; Analytics from SUNY Polytechnic Institute and I'm based in Utica, NY.
+          I'm always excited to collaborate on practical, scalable AI applications that solve real problems.
+        </p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Years of ML/AI Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">92%</div>
+          <div class="stat-label">Precision in Crisis Detection NLP</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Research Papers Under Review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">15%</div>
+          <div class="stat-label">Forecast Accuracy Improvement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <p class="section-label reveal">Capabilities</p>
+    <h2 class="section-title reveal">Skills &amp; Competencies</h2>
+    <div class="divider reveal"></div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F9E0;</span> Generative AI &amp; LLMs</div>
+        <div class="skill-tags">
+          <span class="tag">RAG</span>
+          <span class="tag">Agentic AI Workflows</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">LLM Fine-tuning</span>
+          <span class="tag">LangChain</span>
+          <span class="tag">Chroma / Pinecone</span>
+          <span class="tag">OpenAI GPT</span>
+          <span class="tag">Claude APIs</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F4BB;</span> Programming</div>
+        <div class="skill-tags">
+          <span class="tag">Python (NumPy, Pandas, scikit-learn)</span>
+          <span class="tag">SQL (PostgreSQL, MySQL)</span>
+          <span class="tag">R</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F517;</span> Backend &amp; APIs</div>
+        <div class="skill-tags">
+          <span class="tag">FastAPI</span>
+          <span class="tag">Flask</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Model Serving</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F3A8;</span> Frontend Development</div>
+        <div class="skill-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Dashboard Development</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F916;</span> Machine Learning</div>
+        <div class="skill-tags">
+          <span class="tag">TensorFlow</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">LightGBM</span>
+          <span class="tag">Random Forest</span>
+          <span class="tag">Feature Engineering</span>
+          <span class="tag">Hyperparameter Tuning</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F4AC;</span> Deep Learning &amp; NLP</div>
+        <div class="skill-tags">
+          <span class="tag">LSTM</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">BERT</span>
+          <span class="tag">Hugging Face</span>
+          <span class="tag">Text Classification</span>
+          <span class="tag">NER</span>
+          <span class="tag">Sentiment Analysis</span>
+          <span class="tag">CNN / Computer Vision</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x2601;&#xFE0F;</span> MLOps &amp; Cloud</div>
+        <div class="skill-tags">
+          <span class="tag">AWS (S3, EC2, SageMaker)</span>
+          <span class="tag">Azure</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Git / CI-CD</span>
+          <span class="tag">Apache Spark</span>
+          <span class="tag">ETL Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span class="icon">&#x1F4CA;</span> Data &amp; Visualization</div>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">A/B Testing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <p class="section-label reveal">Career</p>
+    <h2 class="section-title reveal">Professional Experience</h2>
+    <div class="divider reveal"></div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-role">Data Science Research Associate</span>
+            <span class="exp-date">Jan 2026 &ndash; Present</span>
+          </div>
+          <div class="exp-org">SUNY Polytechnic Institute &middot; Utica, NY</div>
+          <ul class="exp-bullets">
+            <li>Built a full-stack geotechnical data platform for the DIGGS Student Hackathon, engineering a <strong>4-strategy PDF extraction engine</strong> (pdfplumber), DIGGS 2.6 XSD schema validation (lxml), color-coded Excel outputs (openpyxl), and interactive 3D subsurface soil visualizations (Plotly/scipy), converting borehole logs into standardized formats in <strong>under 5 seconds</strong>.</li>
+            <li>Enhancing the production Streamlit-based Geotechnical AI Assistant by expanding domain knowledge and refining <strong>RAG workflows</strong> through prompt optimization to improve answer accuracy.</li>
+            <li>Extending a real-time disaster intelligence NLP pipeline by integrating Twitter/X API with Reddit streams through <strong>LLM-powered agentic workflows</strong> for autonomous crisis signal extraction.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-role">AI/ML Engineer</span>
+            <span class="exp-date">Jan 2026 &ndash; Present</span>
+          </div>
+          <div class="exp-org">SPIRIT AI (Startup) &middot; Remote</div>
+          <ul class="exp-bullets">
+            <li>Engineered a production-grade <strong>LLM cost monitoring and rate-limiting system</strong> on FastAPI, PostgreSQL, GCP, implementing Redis-backed tier-based throttling, configurable per-model pricing, and a real-time admin metrics API with alert thresholds.</li>
+            <li>Building a <strong>multi-provider LLM orchestration layer</strong> with automatic Gemini-to-GPT-4o-mini failover, semantic caching via Qdrant, and WebSocket-based streaming, targeting sub-second latency and zero-downtime reliability.</li>
+            <li>Designing a <strong>provider-agnostic ML inference architecture</strong> supporting plug-and-play model swaps (Claude, Llama, GPT) with observability via Prometheus metrics and GCP Cloud Monitoring.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-role">Graduate Research Assistant</span>
+            <span class="exp-date">Aug 2024 &ndash; Dec 2025</span>
+          </div>
+          <div class="exp-org">SUNY Polytechnic Institute &middot; Utica, NY</div>
+          <ul class="exp-bullets">
+            <li>Developed production ML pipeline using ensemble methods (Random Forest, XGBoost, Neural Networks) for multi-depth soil temperature forecasting, achieving <strong>15% accuracy improvement</strong> through hyperparameter tuning.</li>
+            <li>Fine-tuned <strong>BERT-based multi-class NLP system</strong> on 10,000+ social media posts for crisis detection, achieving <strong>92% precision</strong> in automated emergency response classification.</li>
+            <li>Built LLM-powered chatbot with RAG architecture and knowledge graph integration, handling <strong>500+ technical queries</strong> with context-aware responses.</li>
+            <li>Co-authored research papers for Transportation Research Board (TRB) submission, contributing predictive modeling algorithms and crisis detection methodologies.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-role">Data Science Intern</span>
+            <span class="exp-date">Aug 2023 &ndash; Dec 2023</span>
+          </div>
+          <div class="exp-org">AI Variant &middot; Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Applied K-Means and hierarchical clustering to economic datasets with <strong>20+ macroeconomic indicators</strong>, uncovering trend patterns for policy analysis workflows.</li>
+            <li>Analyzed <strong>50,000+ healthcare-economic data points</strong> to identify growth correlations, supporting ROI prediction models with <strong>89% accuracy</strong>.</li>
+            <li>Optimized clustering algorithms through hyperparameter tuning, reducing computation time by <strong>23%</strong> while maintaining model quality.</li>
+            <li>Created 3 executive presentations with interactive Power BI dashboards for senior leadership.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <span class="exp-role">Data Scientist Trainee</span>
+            <span class="exp-date">May 2022 &ndash; Jul 2023</span>
+          </div>
+          <div class="exp-org">AI Variant &middot; Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Preprocessed <strong>5,000+ record datasets</strong>, handling missing values and outlier detection to improve data quality for modeling pipelines.</li>
+            <li>Implemented supervised learning algorithms (Linear Regression, Decision Trees, Logistic Regression) using scikit-learn, completing <strong>8+ exercises</strong> with code reviews.</li>
+            <li>Generated 6+ data visualizations using Matplotlib and Seaborn to communicate progress during mentorship sessions.</li>
+            <li>Documented 15+ training exercises through Jupyter notebooks following Git version control standards.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <p class="section-label reveal">Portfolio</p>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <div class="divider reveal"></div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-name">Hybrid Code-RAG System with MCP Tools</div>
+        <div class="project-tech">
+          <span class="tag">Python</span><span class="tag">MCP Protocol</span><span class="tag">LangChain</span><span class="tag">Streamlit</span>
+        </div>
+        <ul class="project-bullets">
+          <li>Architected repository management system cloning codebases via GitPython and indexing docs through <strong>ChromaDB</strong>, converting content to Gemini vector embeddings for semantic retrieval.</li>
+          <li>Designed an intelligent query router with LLM-based classification, automatically triggering <strong>RAG retrieval or MCP tool-augmented agentic workflows</strong>.</li>
+          <li>Orchestrated an iterative FastMCP reasoning loop executing multi-step tool chains, delivering <strong>200+ verifiable responses</strong> with real-time evidence panels.</li>
+        </ul>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">Social Media Data Analysis for Natural Disaster Detection</div>
+        <div class="project-tech">
+          <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">BERT</span><span class="tag">Streamlit</span><span class="tag">Twitter API</span>
+        </div>
+        <ul class="project-bullets">
+          <li>Designed a real-time disaster monitoring pipeline classifying <strong>10,000+ social media posts</strong> using fine-tuned BERT models, achieving <strong>92% precision</strong>.</li>
+          <li>Implemented geospatial visualization mapping crisis signals across regions, enabling automated alert generation.</li>
+          <li>Developed a Streamlit dashboard with interactive filtering and temporal analysis for emergency management stakeholders.</li>
+        </ul>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-name">Soil Temperature Prediction System</div>
+        <div class="project-tech">
+          <span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">LSTM</span><span class="tag">XGBoost</span><span class="tag">Streamlit</span>
+        </div>
+        <ul class="project-bullets">
+          <li>Processed historical climate datasets with <strong>50,000+ temporal records</strong> through feature engineering and normalization pipelines.</li>
+          <li>Built an ensemble forecasting model combining LSTM with gradient boosting, achieving a <strong>15% improvement</strong> over baseline methods.</li>
+          <li>Created an interactive Streamlit application enabling agricultural researchers to generate 7-day temperature forecasts.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-wrap">
+    <p class="section-label reveal">Research</p>
+    <h2 class="section-title reveal">Publications &amp; Research</h2>
+    <div class="divider reveal"></div>
+    <div class="pub-list">
+      <div class="pub-card reveal">
+        <div class="pub-title">Advancing Subgrade Temperature Prediction Through Machine Learning-Based Tool Development</div>
+        <span class="pub-status">Manuscript Under Review</span>
+        <p class="pub-desc">Developed ensemble ML and LSTM-based forecasting systems for multi-depth soil temperature prediction using historical climate and environmental datasets, improving forecasting accuracy through hyperparameter optimization and feature engineering.</p>
+      </div>
+      <div class="pub-card reveal">
+        <div class="pub-title">Harnessing Social Media Data for Natural Disaster Information: A Case Study on Hurricane and Wildfire Posts on Reddit</div>
+        <span class="pub-status">Manuscript Under Review</span>
+        <p class="pub-desc">Built a BERT-based NLP pipeline for disaster event classification and crisis signal extraction from social media streams, achieving 92% precision in emergency event identification through real-time data processing workflows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <p class="section-label reveal">Academics</p>
+    <h2 class="section-title reveal">Education</h2>
+    <div class="divider reveal"></div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-degree">M.S. &ndash; Data Science and Analytics</div>
+        <div class="edu-school">State University of New York Polytechnic Institute</div>
+        <div class="edu-meta">Jan 2024 &ndash; Dec 2025 &middot; Utica, NY</div>
+        <div class="edu-course">Coursework: Machine Learning, Deep Learning, NLP, Big Data Analytics</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">B.S. &ndash; Information Technology</div>
+        <div class="edu-school">Osmania University</div>
+        <div class="edu-meta">Jul 2018 &ndash; Aug 2022 &middot; Hyderabad, India</div>
+        <div class="edu-course">Coursework: Advanced Programming, Algorithms, Data Structures, AI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <p class="section-label reveal">Let's Connect</p>
+      <h2 class="section-title reveal">Get In Touch</h2>
+      <div class="divider reveal" style="margin: 0 auto 2rem;"></div>
+      <p class="reveal">
+        Open to Data Scientist, AI/ML Engineer, and Generative AI roles.
+        Feel free to reach out via email, phone, or LinkedIn.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:sumanthbandi178@gmail.com" class="contact-link primary">
+          &#9993; sumanthbandi178@gmail.com
+        </a>
+        <a href="#" class="contact-link ghost">
+          LinkedIn
+        </a>
+        <a href="#" class="contact-link ghost">
+          GitHub
+        </a>
+        <a href="tel:+13158640389" class="contact-link ghost">
+          +1 315-864-0389
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Sumanth Bandi &middot; Data Scientist &amp; Generative AI Engineer &middot; Utica, NY</p>
+</footer>
+
+<script>
+/* CANVAS PARTICLE NET */
+(function(){
+  var canvas = document.getElementById('canvas-bg');
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [], mouse = {x: null, y: null};
+  var N = 80, CONN = 140;
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  function Particle() {
+    this.x = Math.random()*W; this.y = Math.random()*H;
+    this.vx = (Math.random()-0.5)*0.4; this.vy = (Math.random()-0.5)*0.4;
+    this.r = Math.random()*1.5+0.5;
+  }
+  Particle.prototype.update = function(){
+    this.x += this.vx; this.y += this.vy;
+    if(this.x<0||this.x>W) this.vx*=-1;
+    if(this.y<0||this.y>H) this.vy*=-1;
+  };
+  for(var i=0;i<N;i++) particles.push(new Particle());
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var grd = ctx.createRadialGradient(W*0.3,H*0.4,0,W*0.3,H*0.4,W*0.6);
+    grd.addColorStop(0,'rgba(124,58,237,0.09)'); grd.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = grd; ctx.fillRect(0,0,W,H);
+    var grd2 = ctx.createRadialGradient(W*0.75,H*0.6,0,W*0.75,H*0.6,W*0.5);
+    grd2.addColorStop(0,'rgba(251,113,133,0.06)'); grd2.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = grd2; ctx.fillRect(0,0,W,H);
+
+    particles.forEach(function(p){ p.update(); });
+    for(var i=0;i<N;i++){
+      for(var j=i+1;j<N;j++){
+        var dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d<CONN){
+          ctx.beginPath();
+          ctx.strokeStyle='rgba(192,132,252,'+(0.16*(1-d/CONN))+')';
+          ctx.lineWidth=0.5;
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y); ctx.stroke();
+        }
+      }
+      if(mouse.x){
+        var dx=particles[i].x-mouse.x, dy=particles[i].y-mouse.y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d<180){
+          ctx.beginPath();
+          ctx.strokeStyle='rgba(251,113,133,'+(0.35*(1-d/180))+')';
+          ctx.lineWidth=0.8;
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.fillStyle='rgba(192,132,252,0.55)';
+      ctx.arc(particles[i].x,particles[i].y,particles[i].r,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* TYPEWRITER */
+(function(){
+  var roles = ['Generative AI Engineer','LLM & RAG Specialist','Agentic AI Workflows','Data Scientist','ML Systems Architect'];
+  var ri=0, ci=0, del=false;
+  var el = document.getElementById('typewriter');
+  function tick(){
+    var cur = roles[ri];
+    if(!del){ ci++; el.textContent=cur.slice(0,ci);
+      if(ci===cur.length){ del=true; setTimeout(tick,1800); return; }
+      setTimeout(tick,60);
+    } else { ci--; el.textContent=cur.slice(0,ci);
+      if(ci===0){ del=false; ri=(ri+1)%roles.length; setTimeout(tick,300); return; }
+      setTimeout(tick,35);
+    }
+  }
+  tick();
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+})();
+
+/* ACTIVE NAV */
+(function(){
+  var sections = document.querySelectorAll('section[id]');
+  var links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',function(){
+    var cur='';
+    sections.forEach(function(s){ if(window.scrollY>=s.offsetTop-120) cur=s.id; });
+    links.forEach(function(a){ a.classList.toggle('active',a.getAttribute('href')==='#'+cur); });
+  });
+})();
+</script>
+</body>
+</html>

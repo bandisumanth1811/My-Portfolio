@@ -1,6 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumanth Bandi | AI/ML Engineer</title>
+<meta name="description" content="AI/ML Engineer building LLM systems, RAG, agentic workflows, and geospatial ML.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0e0a1a;--bg2:#150f26;--v:#7c3aed;--co:#fb7185;--ac:#c084fc;--acl:#e9d5ff;--w:#fff;--g1:#e5def5;--g2:#b3a7cf;--g3:#6e6390;--bd:rgba(255,255,255,.1);--card:rgba(255,255,255,.04);--gr:linear-gradient(135deg,var(--v),var(--co))}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,sans-serif;background:var(--bg);color:var(--g1);line-height:1.6;overflow-x:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+section,footer{position:relative;z-index:1}
+nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1rem 4rem;background:rgba(14,10,26,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.logo{font:700 1.2rem 'Space Grotesk';color:var(--w)}.logo span{color:var(--ac)}
+nav ul{display:flex;gap:1.8rem;list-style:none}
+nav a{color:var(--g2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+nav a:hover,nav a.on{color:var(--w)}
+.wrap{max-width:1150px;margin:0 auto;padding:5rem 3rem}
+.alt{background:var(--bg2)}
+.lab{font:700 .72rem 'Space Mono';letter-spacing:.25em;text-transform:uppercase;color:var(--ac)}
+h2{font:700 clamp(1.8rem,3vw,2.4rem) 'Space Grotesk';color:var(--w);margin:.3rem 0 .8rem}
+.dv{width:60px;height:3px;background:var(--gr);border-radius:2px;margin-bottom:2.5rem}
+#home{min-height:100vh;display:flex;align-items:center;padding:7rem 3rem 3rem}
+.hero{max-width:1150px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:3rem;width:100%}
+.hero h1{font:700 clamp(2.4rem,5vw,3.6rem) 'Space Grotesk';color:var(--w);line-height:1.1;letter-spacing:-.03em}
+.tw{font:400 1.1rem 'Space Mono';color:var(--acl);margin:.8rem 0 1.2rem;min-height:1.8rem}
+.hero p{color:var(--g2);max-width:560px;margin-bottom:1.8rem;font-size:.95rem}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.75rem 1.6rem;background:var(--gr);color:#1a0b2e;font-weight:700;font-size:.9rem;border-radius:50px;text-decoration:none;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.gh{background:rgba(255,255,255,.05);color:var(--g1);border:1px solid var(--bd)}
+.ph{position:relative;flex-shrink:0;width:280px;height:280px;border-radius:50%;padding:4px;background:var(--gr);box-shadow:0 0 60px rgba(168,85,247,.3);animation:fl 4s ease-in-out infinite}
+.ph div{width:100%;height:100%;border-radius:50%;background:#2a1a4d;display:flex;align-items:center;justify-content:center;font:700 4.5rem 'Space Grotesk';color:var(--ac);overflow:hidden;position:relative}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.two p{color:var(--g2);margin-bottom:1rem;font-size:.95rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.st,.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;transition:border-color .2s}
+.st{text-align:center}.card:hover,.st:hover{border-color:rgba(192,132,252,.4)}
+.st b{display:block;font:700 2rem 'Space Grotesk';background:var(--gr);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.st span{font-size:.8rem;color:var(--g3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.card h3{font:700 .95rem 'Space Grotesk';color:var(--w);margin-bottom:.8rem}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.tag{font:400 .72rem 'Space Mono';padding:.28rem .7rem;border-radius:50px;background:rgba(192,132,252,.08);border:1px solid rgba(192,132,252,.22);color:var(--acl)}
+.tl{border-left:2px solid var(--v);padding-left:2rem}
+.item{margin-bottom:1.8rem;position:relative}
+.item::before{content:'';position:absolute;left:-2.6rem;top:1.9rem;width:12px;height:12px;border-radius:50%;background:var(--gr);box-shadow:0 0 12px rgba(251,113,133,.5)}
+.hd{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+.hd b{font:700 1rem 'Space Grotesk';color:var(--w)}
+.hd span{font:700 .78rem 'Space Mono';color:var(--ac)}
+.org{color:var(--acl);font-size:.85rem;font-weight:500}
+.note{color:var(--g3);font-size:.8rem;font-style:italic;margin:.2rem 0 .6rem}
+ul.b{list-style:none;margin-top:.8rem}
+ul.b li{font-size:.87rem;color:var(--g2);padding:.3rem 0 .3rem 1.2rem;position:relative}
+ul.b li::before{content:'\25B8';position:absolute;left:0;color:var(--ac);font-size:.7rem;top:.5rem}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem}
+.pg a,.card a{color:var(--ac);font:700 .75rem 'Space Mono';text-decoration:none;margin-right:1rem}
+.pg a:hover,.card a:hover{color:var(--co)}
+.pub{display:block;margin-bottom:1rem}
+.pub b{display:block;color:var(--w);font:700 .95rem 'Space Grotesk';margin-bottom:.4rem}
+.pub em{font:700 .68rem 'Space Mono';color:#fbbf24;border:1px solid rgba(251,191,36,.35);padding:.1rem .6rem;border-radius:50px;margin-right:.8rem;font-style:normal}
+.con{text-align:center;max-width:650px;margin:0 auto}
+.con p{color:var(--g2);margin-bottom:2rem}
+.con .cta{justify-content:center}
+footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--g3);border-top:1px solid var(--bd)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}.rv.v{opacity:1;transform:none}
+@media(max-width:900px){nav{padding:1rem 1.5rem}nav ul{display:none}.wrap{padding:3.5rem 1.5rem}#home{padding:6rem 1.5rem 3rem}.hero{flex-direction:column-reverse;text-align:center}.hero p{margin-inline:auto}.cta{justify-content:center}.ph{width:210px;height:210px}.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ph{animation:none}html{scroll-behavior:auto}.rv{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<nav><div class="logo">Sumanth<span>.B</span></div>
+<ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#publications">Research</a></li><li><a href="#education">Education</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+
+<section id="home"><div class="hero"><div>
+<p class="lab">AI/ML Engineer</p><h1>Sumanth Bandi</h1><div class="tw" id="tw"></div>
+<p>AI/ML Engineer with an M.S. in Data Science and 4+ years across industry and research, building machine learning, NLP, and Generative AI solutions from data to deployment. I build LLM-powered backends with RAG, agentic workflows, multi-provider failover, and cost controls on GCP, and apply geospatial ML to subsurface and coastal-risk problems.</p>
+<div class="cta"><a class="btn" href="mailto:bandis1811@gmail.com">Get In Touch</a><a class="btn gh" href="https://github.com/bandisumanth1811">GitHub</a><a class="btn gh" href="https://www.linkedin.com/in/sumanthbandi/">LinkedIn</a></div></div>
+<div class="ph"><div>SB<img src="profile.jpg" alt="Sumanth Bandi" onerror="this.remove()"></div></div></div></section>
+
+<section id="about" class="alt"><div class="wrap">
+<p class="lab rv">Introduction</p><h2 class="rv">About Me</h2><div class="dv"></div>
+<div class="two"><div class="rv">
+<p>I turn machine learning research into reliable software. My work covers Generative AI and LLM applications, including RAG, agentic workflows, and multi-provider orchestration, alongside classical ML for forecasting, NLP classification, and spatial modeling.</p>
+<p>At Cosmo AGI, I build backend AI systems for a real-time conversational AI platform: streaming, memory, caching, failover, and cost control. At SUNY Polytechnic Institute, I research 3D subsurface prediction, coastal vulnerability, and disaster-detection NLP.</p>
+<p>I hold an M.S. in Data Science and Analytics and am based in Utica, NY.</p></div>
+<div class="stats rv"><div class="st"><b>4+</b><span>Years of ML/AI Experience</span></div><div class="st"><b>3</b><span>Research Papers</span></div><div class="st"><b>92%</b><span>Precision, Crisis-Detection NLP</span></div><div class="st"><b>15%</b><span>Forecast Accuracy Gain</span></div></div></div></div></section>
+
+<section id="skills"><div class="wrap">
+<p class="lab rv">Capabilities</p><h2 class="rv">Skills</h2><div class="dv"></div>
+<div class="grid">
+<div class="card rv"><h3>Generative AI &amp; LLMs</h3><div class="tags"><span class="tag">RAG</span><span class="tag">Agentic Workflows</span><span class="tag">LangGraph</span><span class="tag">LangChain</span><span class="tag">MCP</span><span class="tag">Prompt Engineering</span><span class="tag">Semantic Caching</span><span class="tag">Embeddings</span><span class="tag">pgvector</span><span class="tag">ChromaDB</span><span class="tag">OpenAI</span><span class="tag">Gemini</span></div></div>
+<div class="card rv"><h3>Machine Learning &amp; NLP</h3><div class="tags"><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">LSTM</span><span class="tag">BERT Fine-tuning</span><span class="tag">Hugging Face</span><span class="tag">Time Series</span><span class="tag">K-Means</span><span class="tag">PCA</span><span class="tag">Cross-Validation</span></div></div>
+<div class="card rv"><h3>Backend &amp; Data</h3><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">FastAPI</span><span class="tag">AsyncIO</span><span class="tag">WebSockets</span><span class="tag">REST APIs</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">SQLAlchemy</span><span class="tag">Alembic</span><span class="tag">Pytest</span></div></div>
+<div class="card rv"><h3>Cloud &amp; DevOps</h3><div class="tags"><span class="tag">GCP Cloud Run</span><span class="tag">Cloud SQL</span><span class="tag">Memorystore</span><span class="tag">Cloud Build</span><span class="tag">Cloud Monitoring</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Prometheus</span></div></div>
+<div class="card rv"><h3>Geospatial &amp; Visualization</h3><div class="tags"><span class="tag">Google Earth Engine</span><span class="tag">Sentinel / Landsat</span><span class="tag">Kriging / IDW</span><span class="tag">Streamlit</span><span class="tag">Plotly</span><span class="tag">Folium</span><span class="tag">Kepler.gl</span><span class="tag">Power BI</span></div></div>
+</div></div></section>
+
+<section id="experience" class="alt"><div class="wrap">
+<p class="lab rv">Career</p><h2 class="rv">Experience</h2><div class="dv"></div>
+<div class="tl">
+<div class="item rv card"><div class="hd"><b>AI/ML Engineer</b><span>Mar 2026 &ndash; Present</span></div><div class="org">Cosmo AGI &middot; Remote</div><p class="note">Backend for a real-time conversational AI platform with voice and text chat.</p>
+<ul class="b"><li>Built real-time LLM and voice streaming with FastAPI WebSockets on GCP Cloud Run, using 20-second heartbeats and session affinity so chats of up to 60 minutes don&rsquo;t drop.</li>
+<li>Set up Gemini 2.5 Flash with automatic GPT-4o mini fallback after 2 retries with exponential backoff, so replies continue through rate limits and provider outages.</li>
+<li>Controlled AI costs with a Redis semantic cache (0.95 similarity, 7-day expiry) and usage limits for 3 subscription tiers, with rate limiting, per-model cost tracking, and background usage logging.</li>
+<li>Built a pgvector memory system that recalls the top 5 relevant memories plus pinned facts per reply, filters weak matches with a 0.55 distance cutoff, and removes duplicates by hashing.</li>
+<li>Developed a transactional wallet and ledger with row-level locking and database constraints to prevent negative balances, plus an entitlement system and a timezone-safe daily reward and streak feature.</li></ul></div>
+<div class="item rv card"><div class="hd"><b>AI/ML Research Associate (Geospatial ML &amp; NLP)</b><span>Jan 2026 &ndash; Present</span></div><div class="org">SUNY Polytechnic Institute &middot; Utica, NY</div>
+<ul class="b"><li>Developed a 3D borehole tool that predicts soil layers between sparse boreholes (10 boreholes, 91 intervals), comparing 11 model setups, including IDW, indicator Kriging, Markov models, Random Forest, and XGBoost, with strict leave-one-borehole-out testing. Planning expansion to 55 boreholes and Transformer-based models.</li>
+<li>Building an AI-driven Coastal Road Vulnerability Index in Google Earth Engine for New York&rsquo;s coastline, piloted on Ocean Parkway during Hurricane Henri (2021). It fuses four satellite and elevation sources and uses PCA and K-Means to classify road segments into 5 risk zones.</li>
+<li>Built a platform that converts borehole logs into DIGGS 2.6 XML in under 5 seconds using a four-strategy PDF extraction engine, with schema validation, Excel reports, and 3D Plotly views.</li>
+<li>Improved a Geotechnical AI Assistant&rsquo;s RAG answers through prompt tuning, and extended a disaster-monitoring NLP pipeline with Twitter/X and Reddit streams and LangGraph agents.</li></ul></div>
+<div class="item rv card"><div class="hd"><b>Graduate Research Assistant</b><span>Feb 2024 &ndash; Dec 2025</span></div><div class="org">SUNY Polytechnic Institute &middot; Utica, NY</div>
+<ul class="b"><li>Built a pipeline to forecast soil temperature at multiple depths with Random Forest, XGBoost, and neural networks, improving accuracy 15% through hyperparameter tuning.</li>
+<li>Fine-tuned BERT on 10,000+ social media posts to detect crises and sort them into emergency categories, reaching 92% precision.</li>
+<li>Built a RAG chatbot with a knowledge graph that answered 500+ technical questions with context from earlier messages.</li>
+<li>Co-authored Transportation Research Board (TRB) papers, contributing prediction models, crisis-detection methods, and validation experiments.</li></ul></div>
+<div class="item rv card"><div class="hd"><b>Junior Data Scientist</b><span>Nov 2022 &ndash; Dec 2023</span></div><div class="org">Mahasos &middot; Hyderabad, India</div>
+<ul class="b"><li>Analyzed 50,000+ healthcare-economic data points in Python to find growth correlations and support ROI prediction models that reached 89% accuracy.</li>
+<li>Applied K-Means and hierarchical clustering to 20+ macroeconomic indicators, and cut computation time 23% through tuning, validated with silhouette analysis.</li>
+<li>Presented findings to executives in three Power BI presentations.</li></ul></div>
+<div class="item rv card"><div class="hd"><b>Associate Data Analyst (Python & ML )</b><span>May 2022 &ndash; Oct 2022</span></div><div class="org">AI Variant &middot; Hyderabad, India</div>
+<ul class="b"><li>Cleaned and prepared 5,000+ records in Python, handling missing values and outliers.</li>
+<li>Built Linear Regression, Decision Tree, and Logistic Regression models in scikit-learn across 8+ supervised-learning exercises, with code reviews.</li>
+<li>Created 6+ Matplotlib and Seaborn visualizations and documented 15+ exercises in Jupyter notebooks using Git.</li></ul></div>
+</div></div></section>
+
+<section id="projects"><div class="wrap">
+<p class="lab rv">Portfolio</p><h2 class="rv">Projects</h2><div class="dv"></div>
+<div class="pg">
+<div class="card rv"><h3>Hybrid Code-RAG System with MCP Tools</h3><div class="tags"><span class="tag">Python</span><span class="tag">MCP</span><span class="tag">LangChain</span><span class="tag">ChromaDB</span><span class="tag">Streamlit</span></div>
+<ul class="b"><li>Repository assistant that clones codebases with GitPython, indexes docs in ChromaDB, and uses an LLM router to choose between document search and code tools.</li><li>Iterative FastMCP reasoning loop (search code, read file segments, list symbols) returning 200+ evidence-backed answers.</li></ul>
+<a href="https://hybrid-chatbot-using-mcp.streamlit.app/">Live Demo &rarr;</a><a href="https://github.com/bandisumanth1811/Hybrid-version-of-RAG-Simple-and-Agentic-using-MCP">GitHub &rarr;</a></div>
+<div class="card rv"><h3>Social Media Disaster Detection</h3><div class="tags"><span class="tag">Python</span><span class="tag">BERT</span><span class="tag">Streamlit</span><span class="tag">Twitter API</span></div>
+<ul class="b"><li>Real-time pipeline that classifies disaster posts with a fine-tuned BERT model, with a geospatial dashboard offering filtering, time trends, and automated alerts.</li></ul>
+<a href="https://harnessing-social-media-data-for-natural-disaster-information.streamlit.app/">Live Demo &rarr;</a><a href="https://github.com/bandisumanth1811/Harnessing-Social-Media-Data-for-Natural-Disaster-Information">GitHub &rarr;</a></div>
+<div class="card rv"><h3>Soil Temperature Prediction System</h3><div class="tags"><span class="tag">TensorFlow</span><span class="tag">LSTM</span><span class="tag">XGBoost</span><span class="tag">Streamlit</span></div>
+<ul class="b"><li>LSTM and gradient-boosting ensemble trained on 50,000+ climate records, with a Streamlit app giving 7-day forecasts at a chosen soil depth.</li></ul>
+<a href="https://soiltemperatureprediction.streamlit.app/">Live Demo &rarr;</a><a href="https://github.com/bandisumanth1811/Soil-Temperature-Prediction">GitHub &rarr;</a></div>
+<div class="card rv"><h3>GenAI Practice Lab</h3><div class="tags"><span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">FAISS</span><span class="tag">Ollama</span></div>
+<ul class="b"><li>Daily hands-on log of LLM apps, RAG pipelines, model serving, and local models, with my own extensions to each topic.</li></ul>
+<a href="https://github.com/bandisumanth1811/Gen_AI_Practice_Lab">GitHub &rarr;</a></div>
+</div></div></section>
+
+<section id="publications" class="alt"><div class="wrap">
+<p class="lab rv">Research</p><h2 class="rv">Publications &amp; Research</h2><div class="dv"></div>
+<div class="card pub rv"><b>Advancing Subgrade Temperature Prediction Through Machine Learning-Based Tool Development</b><a href="https://drive.google.com/file/d/1dS78fL0fHFwsBA1DeTcR8ClhyEatasog/view?usp=sharing">View Paper &rarr;</a></div>
+<div class="card pub rv"><b>Harnessing Social Media Data for Natural Disaster Information: A Case Study on Hurricane and Wildfire Posts on Reddit</b><a href="https://drive.google.com/file/d/1CjTNbzuOnJ1eQNwVw9EtCYQbnP_feiSo/view?usp=sharing">View Paper &rarr;</a></div>
+<div class="card pub rv"><b>Automated Conversion of Geotechnical Borehole Logs into DIGGS 2.6 XML and Interactive 3D Visualizations</b><a href="https://drive.google.com/file/d/1Xx-2u3lVy7klnAKz2NrUDF8aMMTGow8Y/view">View Paper &rarr;</a></div>
+</div></section>
+
+<section id="education"><div class="wrap">
+<p class="lab rv">Academics</p><h2 class="rv">Education</h2><div class="dv"></div>
+<div class="grid">
+<div class="card rv"><h3>M.S. &ndash; Data Science and Analytics</h3><div class="org">SUNY Polytechnic Institute &middot; Utica, NY</div><p class="note">Jan 2024 &ndash; Dec 2025 &middot; Machine Learning, Deep Learning, NLP, Big Data Analytics</p></div>
+<div class="card rv"><h3>B.S. &ndash; Information Technology</h3><div class="org">Osmania University &middot; Hyderabad, India</div><p class="note">Jul 2018 &ndash; Aug 2022 &middot; Algorithms, Data Structures, Artificial Intelligence</p></div>
+<div class="card rv"><h3>Certifications</h3><div class="org">Generative AI with LangChain and Hugging Face</div><p class="note">Udemy</p></div>
+</div></div></section>
+
+<section id="contact" class="alt"><div class="wrap con">
+<p class="lab rv">Let&rsquo;s Connect</p><h2 class="rv">Get In Touch</h2>
+<p class="rv">Open to full-time AI/ML Engineer, Generative AI, and Applied ML roles.</p>
+<div class="cta rv"><a class="btn" href="mailto:bandis1811@gmail.com">bandis1811@gmail.com</a><a class="btn gh" href="https://www.linkedin.com/in/sumanthbandi/">LinkedIn</a><a class="btn gh" href="https://github.com/bandisumanth1811">GitHub</a><a class="btn gh" href="tel:+13158640389">+1 315-864-0389</a></div></div></section>
+<footer>&copy; 2026 Sumanth Bandi &middot; AI/ML Engineer &middot; Utica, NY</footer>
+
+<script>
+(function(){var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,P=[],m={};function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);addEventListener('mousemove',function(e){m.x=e.clientX;m.y=e.clientY});
+for(var i=0;i<70;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:Math.random()*.4-.2,vy:Math.random()*.4-.2});
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+(function d(){x.clearRect(0,0,W,H);P.forEach(function(p,i){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+for(var j=i+1;j<P.length;j++){var q=P[j],dx=p.x-q.x,dy=p.y-q.y,l=Math.sqrt(dx*dx+dy*dy);if(l<130){x.strokeStyle='rgba(192,132,252,'+.16*(1-l/130)+')';x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}
+if(m.x){var a=p.x-m.x,b=p.y-m.y,k=Math.sqrt(a*a+b*b);if(k<170){x.strokeStyle='rgba(251,113,133,'+.35*(1-k/170)+')';x.beginPath();x.moveTo(p.x,p.y);x.lineTo(m.x,m.y);x.stroke()}}
+x.fillStyle='rgba(192,132,252,.55)';x.beginPath();x.arc(p.x,p.y,1.3,0,7);x.fill()});requestAnimationFrame(d)})()})();
+(function(){var R=['Generative AI Engineer','LLM & RAG Systems','Agentic AI Workflows','Geospatial ML'],i=0,n=0,del=0,e=document.getElementById('tw');
+(function t(){var s=R[i];if(!del){e.textContent=s.slice(0,++n);if(n==s.length){del=1;return setTimeout(t,1700)}setTimeout(t,60)}else{e.textContent=s.slice(0,--n);if(!n){del=0;i=(i+1)%R.length;return setTimeout(t,300)}setTimeout(t,35)}})()})();
+var o=new IntersectionObserver(function(a){a.forEach(function(e){if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});
+document.querySelectorAll('.rv').forEach(function(e){o.observe(e)});
+addEventListener('scroll',function(){var c='';document.querySelectorAll('section[id]').forEach(function(s){if(scrollY>=s.offsetTop-120)c=s.id});document.querySelectorAll('nav a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')=='#'+c)})});
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sumanth Bandi | Data Scientist &amp; Generative AI Engineer</title>
@@ -490,8 +676,8 @@
           <div class="stat-label">Precision in Crisis Detection NLP</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Research Papers Under Review</div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Research Papers</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">15%</div>
